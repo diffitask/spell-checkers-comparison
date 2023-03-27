@@ -42,13 +42,93 @@ Another tools that can be useful for spell checking and correction:
 
 ## Dataset and metrics
 
-A detailed description of the dataset and the selected metrics is written in
+A detailed description of the datasets and the selected metrics is written in
 the [notebook](https://github.com/diffitask/spell-checkers-comparison/blob/main/spell-checkers-comparison.ipynb). Also,
 here you can find the code of how the analyzed spell checking tools work on test data and measurements of metrics for
 each checker.
 
 ## Benchmarks
-TODO: table
+
+<table>
+  <tr>
+    <td></td>
+    <td>Recall</td>
+    <td>Precision</td>
+    <td>Accuracy</td>
+    <td>Invalids after checker</td>
+    <td>Fixed</td>
+    <td>Non-fixed with correction in top-5</td>
+    <td>Broken</td>
+    <td>Speed<br>
+(words/sec)</td>
+  </tr>
+  <tr>
+    <td>Hunspell</td>
+    <td>98.78%</td>
+    <td>97.31%</td>
+    <td>97.78%</td>
+    <td>15.01%</td>
+    <td>75.97%</td>
+    <td>67.74%</td>
+    <td>3.49%</td>
+    <td>63</td>
+  </tr>
+  <tr>
+    <td>Spello</td>
+    <td>96.90%</td>
+    <td>90.86%</td>
+    <td>92.80%</td>
+    <td>22.53%</td>
+    <td>69.57%</td>
+    <td>47.68%</td>
+    <td>12.43%</td>
+    <td>930</td>
+  </tr>
+  <tr>
+    <td>Jamspell</td>
+    <td>99.71%</td>
+    <td>56.06%</td>
+    <td>56.04%</td>
+    <td>21.64%</td>
+    <td>64.97%</td>
+    <td>60.87%</td>
+    <td>4.53%</td>
+    <td>365</td>
+  </tr>
+  <tr>
+    <td>Pyspellchecker</td>
+    <td>97.59%</td>
+    <td>55.87%</td>
+    <td>55.45%</td>
+    <td>21.73%</td>
+    <td>63.79%</td>
+    <td>57.85%</td>
+    <td>3.23%</td>
+    <td>32</td>
+  </tr>
+  <tr>
+    <td>Autocorrect</td>
+    <td>100.00%</td>
+    <td>56.04%</td>
+    <td>56.04%</td>
+    <td>23.62%</td>
+    <td>64.81%</td>
+    <td>44.66%</td>
+    <td>8.84%</td>
+    <td>42</td>
+  </tr>
+  <tr>
+    <td>Textblob</td>
+    <td>100.00%</td>
+    <td>56.04%</td>
+    <td>56.04%</td>
+    <td>28.03%</td>
+    <td>61.63%</td>
+    <td>26.06%</td>
+    <td>14.83%</td>
+    <td>10</td>
+  </tr>
+</table>
 
 ## Analyzed tools overview
 
@@ -58,4 +138,4 @@ TODO: table
 
 ### Tool 3
 
-# Conclusion
+## Conclusion
