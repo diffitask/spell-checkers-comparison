@@ -133,20 +133,81 @@ each checker.
 
 ## Results interpreting
 
+### Gradation of metrics importance
+
 The **most important** metric is the **percent of invalid words in the text after spell checker work**, because the main
 user's
 desire is to get as correct text as possible at the output. So the spell checking tools were sorted in the descending
 order of
 this metric.
 
-Hunspell wins!)
+Next in importance are accuracy, which shows how well the checker determines the spelling of a word in general, and the
+speed of the checker, which indicates how long the user will have to wait.
 
-## Analyzed tools overview
+The other metrics are interesting but less important.
 
-### Tool 1
+### Spell checking tools overview
 
-### Tool 2
+#### Hunspell
 
-### Tool 3
+Hunspell wins!) It has medium speed, but the highest accuracy and the lowest errors number in the output text. One of
+the reasons, why this tool is so good (and popular) -- in addition to having a large vocabulary, Hunspell also knows a
+lot of extreme cases and explicitly flags some existing or forbidden words, which improves the accuracy of his word
+classification ([article](https://zverok.space/blog/2021-03-16-spellchecking-dictionaries.html)). Another Hunspell
+benefit, that doesn't test in this research, is that its special format dictionaries are available for more than 100
+languages.
+
+#### Jamspell
+
+Jamspell competed with Hunspell a few years ago, and, as its creators wrote in 2020, it showed even better results.
+Although it still works 5 times faster than the Hunspell, but as we can see, in our testing Jamspell performed worse
+results and left 6% more errors in the final text. Classifying accuracy of Jamspell is also lower than Hunspell
+accuracy -- by 7%.
+
+Jamspell is written in C++ -- the fastest language -- in particular, this is why he has such a high speed of work. But
+it should have learned how to fix words better.
+
+#### Pyspellchecker
+
+Spell checking [library](https://github.com/barrust/pyspellchecker) that
+implements [Peter Norvig's](https://norvig.com/spell-correct.html) algorithm idea, which many subsequently turned to for
+comparison or improvement.
+
+*How does it work?*
+
+Clipping from the library description:
+"It uses a [Levenshtein Distance](https://en.wikipedia.org/wiki/Levenshtein_distance) algorithm to find permutations
+within an edit distance of 2 from the original word. It then compares all permutations (insertions, deletions,
+replacements, and transpositions) to known words in a word frequency list. Those words that are found more often in the
+frequency list are more likely the correct results."
+
+*Strengths and weaknesses*
+
+Because of many permutations calculating it doesn't work fast, but on the other hand, it classifies words very
+accurately as correct or non-correct (classifying accuracy is almost the same as in the Hunspell case), but it does not
+correct words so well.
+
+#### Spello
+
+The fastest library! It looks very cool, even though a small model for English was used in this research. Perhaps the
+larger model works even more efficiently! (but it should be tested first).
+
+#### Autocorrect
+
+Autocorrect library also based on Peter Norvig's spelling corrector. Not very fast, but 4 times faster than Textblob
+library and even faster than the Pyspellchecker. In general, the results are slightly worse than the Pyspellchecker. As
+a benefit, it's can be noted that the library supports more than 12 languages and makes it easy to add new languages.
+
+#### Textblob
+
+The lowest and the worst library in our analyzed tool set... also based on Peter Norvig's article and calculates
+Levenshtein distances (that's why it's so slow). It makes user to wait for a long time and the output text
+is almost 1/3 made up of errors. In the Internet I found some examples of using this tool together with Pyspellchecker:
+first, the Pyspellchecker library detects misspelled words, and then the Textblob works purely as a misspellings
+corrector. Maybe this combination could give better results.
 
 ## Conclusion
+
+If accuracy is important in your task and the very high speed is not necessary, it is better to use Hunspell. If there
+is some application where speed is critical and the output text could have some spelling errors, maybe your way is to
+use Spello.
